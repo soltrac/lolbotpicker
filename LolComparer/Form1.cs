@@ -214,6 +214,11 @@ namespace LolComparer
             CalculateBest();
         }
 
+        private void radioButtonStatRating_CheckedChanged(object sender, EventArgs e)
+        {
+            CalculateBest();
+        }
+
         private void comboBoxMySup_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBoxMySup.SelectedItem != null && comboBoxMySup.SelectedItem.ToString() != "" && comboBoxMySup.Items.Contains(comboBoxMySup.SelectedItem))
@@ -360,9 +365,19 @@ namespace LolComparer
                             if (sup.games > numericUpDown1.Value)
                             {
                                 if (pairs.ContainsKey(sup.key))
-                                    pairs[sup.key] += sup.statScore;
+                                {
+                                    if (radioButtonStatRating.Checked)
+                                        pairs[sup.key] += sup.statScore;
+                                    else
+                                        pairs[sup.key] += sup.winRate;
+                                }
                                 else
-                                    pairs.Add(sup.key, sup.statScore);
+                                {
+                                    if (radioButtonStatRating.Checked)
+                                        pairs.Add(sup.key, sup.statScore);
+                                    else
+                                        pairs.Add(sup.key, sup.winRate);
+                                }
                             }
                         }
                     }
@@ -377,9 +392,19 @@ namespace LolComparer
                             if (sup.games > numericUpDown1.Value)
                             {
                                 if (pairs.ContainsKey(sup.key))
-                                    pairs[sup.key] += sup.statScore;
+                                {
+                                    if (radioButtonStatRating.Checked)
+                                        pairs[sup.key] += sup.statScore;
+                                    else
+                                        pairs[sup.key] += sup.winRate;
+                                }
                                 else
-                                    pairs.Add(sup.key, sup.statScore);
+                                {
+                                    if (radioButtonStatRating.Checked)
+                                        pairs.Add(sup.key, sup.statScore);
+                                    else
+                                        pairs.Add(sup.key, sup.winRate);
+                                }
                             }
                         }
                     }
@@ -396,9 +421,19 @@ namespace LolComparer
                                 if (sup.games > numericUpDown1.Value)
                                 {
                                     if (pairs.ContainsKey(sup.key))
-                                        pairs[sup.key] -= sup.statScore;
+                                    {
+                                        if (radioButtonStatRating.Checked)
+                                            pairs[sup.key] -= sup.statScore;
+                                        else
+                                            pairs[sup.key] -= sup.winRate;
+                                    }
                                     else
-                                        pairs.Add(sup.key, -sup.statScore);
+                                    {
+                                        if (radioButtonStatRating.Checked)
+                                            pairs.Add(sup.key, -sup.statScore);
+                                        else
+                                            pairs.Add(sup.key, -sup.winRate);
+                                    }
                                 }
                             }
                         }
@@ -409,9 +444,19 @@ namespace LolComparer
                                 if (sup.games > numericUpDown1.Value)
                                 {
                                     if (pairs.ContainsKey(sup.key))
-                                        pairs[sup.key] -= sup.statScore;
+                                    {
+                                        if (radioButtonStatRating.Checked)
+                                            pairs[sup.key] -= sup.statScore;
+                                        else
+                                            pairs[sup.key] -= sup.winRate;
+                                    }
                                     else
-                                        pairs.Add(sup.key, -sup.statScore);
+                                    {
+                                        if (radioButtonStatRating.Checked)
+                                            pairs.Add(sup.key, -sup.statScore);
+                                        else
+                                            pairs.Add(sup.key, -sup.winRate);
+                                    }
                                 }
                             }
                         }
@@ -429,9 +474,19 @@ namespace LolComparer
                                 if (sup.games > numericUpDown1.Value)
                                 {
                                     if (pairs.ContainsKey(sup.key))
-                                        pairs[sup.key] -= sup.winRate/100;
+                                    {
+                                        if (radioButtonStatRating.Checked)
+                                            pairs[sup.key] -= sup.statScore;
+                                        else
+                                            pairs[sup.key] -= sup.winRate;
+                                    }
                                     else
-                                        pairs.Add(sup.key, -sup.winRate/100);                                    
+                                    {
+                                        if (radioButtonStatRating.Checked)
+                                            pairs.Add(sup.key, -sup.statScore);
+                                        else
+                                            pairs.Add(sup.key, -sup.winRate);
+                                    }
                                 }
                             }
                         }
@@ -442,9 +497,19 @@ namespace LolComparer
                                 if (sup.games > numericUpDown1.Value)
                                 {
                                     if (pairs.ContainsKey(sup.key))
-                                        pairs[sup.key] -= sup.statScore;
+                                    {
+                                        if (radioButtonStatRating.Checked)
+                                            pairs[sup.key] -= sup.statScore;
+                                        else
+                                            pairs[sup.key] -= sup.winRate;
+                                    }
                                     else
-                                        pairs.Add(sup.key, -sup.statScore);
+                                    {
+                                        if (radioButtonStatRating.Checked)
+                                            pairs.Add(sup.key, -sup.statScore);
+                                        else
+                                            pairs.Add(sup.key, -sup.winRate);
+                                    }
                                 }
                             }
                         }
