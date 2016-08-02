@@ -337,7 +337,7 @@ namespace LolComparer
                     {
                         if (count > 10)
                             break;
-                        listBox1.Items.Add(sup.key);
+                        listBox1.Items.Add(sup);
                         count++;
                     }
                 }
@@ -347,7 +347,7 @@ namespace LolComparer
                     {
                         if (count > 10)
                             break;
-                        listBox1.Items.Add(adc.key);
+                        listBox1.Items.Add(adc);
                         count++;
                     }
                 }
@@ -521,7 +521,13 @@ namespace LolComparer
                 {
                     if (count > 10)
                         break;
-                    listBox1.Items.Add(pair.Key);
+
+                    var championValue = new ChampionValue
+                    {
+                        Champion = radioButton1.Checked ? _supports.Find(x => x.key == pair.Key) : _adcs.Find(x => x.key == pair.Key),
+                        Value = pair.Value
+                    };
+                    listBox1.Items.Add(championValue);                    
                     count++;
                 }
             }

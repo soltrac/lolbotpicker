@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="AdcSupport.cs" />
     <Compile Include="ChampionData.cs" />
+    <Compile Include="ChampionValue.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

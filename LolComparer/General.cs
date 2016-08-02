@@ -9,5 +9,6 @@ namespace LolComparer
     public class General
     {
         public int overallPosition { get; set; }
+        public double winPercent { get; set; }
     }
 }

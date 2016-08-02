@@ -120,7 +120,7 @@
             this.listBox1.ItemHeight = 16;
             this.listBox1.Location = new System.Drawing.Point(197, 251);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(245, 212);
+            this.listBox1.Size = new System.Drawing.Size(315, 212);
             this.listBox1.TabIndex = 6;
             // 
             // label4
@@ -171,6 +171,7 @@
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(62, 17);
             this.radioButton1.TabIndex = 13;
+            this.radioButton1.TabStop = true;
             this.radioButton1.Text = "Support";
             this.radioButton1.UseVisualStyleBackColor = true;
             this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
@@ -214,6 +215,7 @@
             this.radioButtonStatRating.Name = "radioButtonStatRating";
             this.radioButtonStatRating.Size = new System.Drawing.Size(104, 17);
             this.radioButtonStatRating.TabIndex = 18;
+            this.radioButtonStatRating.TabStop = true;
             this.radioButtonStatRating.Text = "Statistical Rating";
             this.radioButtonStatRating.UseVisualStyleBackColor = true;
             this.radioButtonStatRating.CheckedChanged += new System.EventHandler(this.radioButtonStatRating_CheckedChanged);
