@@ -22,5 +22,17 @@ namespace LolComparer.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SummonerName {
+            get {
+                return ((string)(this["SummonerName"]));
+            }
+            set {
+                this["SummonerName"] = value;
+            }
+        }
     }
 }

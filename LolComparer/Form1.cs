@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Script.Serialization;
 using System.Windows.Forms;
+using LolComparer.Properties;
 
 namespace LolComparer
 {
@@ -19,6 +20,17 @@ namespace LolComparer
         public Form1()
         {
             InitializeComponent();
+
+#if DEBUG
+            textBoxPaste.Text = @"astrojayce se ha unido a la sala.
+Vraelyn se ha unido a la sala.
+FalinInTheHole se ha unido a la sala.
+3DMAN se ha unido a la sala.
+Wuapeton se ha unido a la sala.
+";
+#endif
+
+            textBoxSummoner.Text = (string)Settings.Default["SummonerName"];
 
             // Get supports and ADCs
             var webRequest =
@@ -219,6 +231,68 @@ namespace LolComparer
             CalculateBest();
         }
 
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Settings.Default["SummonerName"] = textBoxSummoner.Text;
+            Settings.Default.Save();
+        }
+
+        private void buttonAnalyzeSummoners_Click(object sender, EventArgs e)
+        {
+            var split = textBoxPaste.Text.Split('\n', '\r');
+
+            var removeText = "";
+            if (textBoxPaste.Text.Contains("joined the lobby"))
+                removeText = "joined the lobby";
+            else if (textBoxPaste.Text.Contains("se ha unido a la sala"))
+                removeText = "se ha unido a la sala";
+
+            playerItem1.Visible = false;
+            playerItem2.Visible = false;
+            playerItem3.Visible = false;
+            playerItem4.Visible = false;
+
+
+            var list = new List<string>();
+
+            foreach (var splitStr in split)
+            {
+                if (splitStr.Trim() != string.Empty)
+                {
+                    var pos = splitStr.IndexOf(removeText, StringComparison.Ordinal);
+                    string str;
+                    if (pos != -1)
+                        str = splitStr.Substring(0, pos).Trim();
+                    else
+                        str = splitStr;
+
+                    if (str.ToLower().Trim() != textBoxSummoner.Text.ToLower().Trim())
+                        list.Add(str.Trim());
+                }
+            }
+            
+            if (list.Count > 0)
+            {
+                playerItem1.Visible = true;
+                playerItem1.AnalyzeSummoner(list[0]);
+            }
+            if (list.Count > 1)
+            {
+                playerItem2.Visible = true;
+                playerItem2.AnalyzeSummoner(list[1]);
+            }
+            if (list.Count > 2)
+            {
+                playerItem3.Visible = true;
+                playerItem3.AnalyzeSummoner(list[2]);
+            }
+            if (list.Count > 3)
+            {
+                playerItem4.Visible = true;
+                playerItem4.AnalyzeSummoner(list[3]);
+            }
+        }
+
         private void comboBoxMySup_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBoxMySup.SelectedItem != null && comboBoxMySup.SelectedItem.ToString() != "" && comboBoxMySup.Items.Contains(comboBoxMySup.SelectedItem))
@@ -373,10 +447,7 @@ namespace LolComparer
                                 }
                                 else
                                 {
-                                    if (radioButtonStatRating.Checked)
-                                        pairs.Add(sup.key, sup.statScore);
-                                    else
-                                        pairs.Add(sup.key, sup.winRate);
+                                    pairs.Add(sup.key, radioButtonStatRating.Checked ? sup.statScore : sup.winRate);
                                 }
                             }
                         }
@@ -400,10 +471,7 @@ namespace LolComparer
                                 }
                                 else
                                 {
-                                    if (radioButtonStatRating.Checked)
-                                        pairs.Add(sup.key, sup.statScore);
-                                    else
-                                        pairs.Add(sup.key, sup.winRate);
+                                    pairs.Add(sup.key, radioButtonStatRating.Checked ? sup.statScore : sup.winRate);
                                 }
                             }
                         }
@@ -522,13 +590,17 @@ namespace LolComparer
                     if (count > 10)
                         break;
 
-                    var championValue = new ChampionValue
+                    var champion = radioButton1.Checked ? _supports.Find(x => x.key == pair.Key) : _adcs.Find(x => x.key == pair.Key);
+                    if (champion != null)
                     {
-                        Champion = radioButton1.Checked ? _supports.Find(x => x.key == pair.Key) : _adcs.Find(x => x.key == pair.Key),
-                        Value = pair.Value
-                    };
-                    listBox1.Items.Add(championValue);                    
-                    count++;
+                        var championValue = new ChampionValue
+                        {
+                            Champion = champion,
+                            Value = pair.Value
+                        };
+                        listBox1.Items.Add(championValue);
+                        count++;
+                    }
                 }
             }
         }
